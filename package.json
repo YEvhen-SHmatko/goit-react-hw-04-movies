@@ -28,7 +28,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://yevhen-shmatko.github.io/goit-react-hw-03-image-finder",
+  "homepage": "https://yevhen-shmatko.github.io/goit-react-hw-04-movies",
   "eslintConfig": {
     "extends": "react-app"
   },
