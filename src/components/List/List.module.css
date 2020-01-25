@@ -1,0 +1,35 @@
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.item {
+  padding: 10px;
+  background: #fff;
+  transition: background 1s, border 1s;
+}
+.link::after {
+  display: block;
+  content: '';
+  width: 0;
+  height: 2px;
+  background: #081c24;
+  transition: width 1s;
+}
+.item:hover .link::after {
+  width: 100%;
+}
+.link {
+  display: inline-block;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  font-size: 20px;
+  /* width: 100%; */
+  color: #081c24;
+  transition: color 1s;
+}
+.active {
+  color: #01d277;
+}
