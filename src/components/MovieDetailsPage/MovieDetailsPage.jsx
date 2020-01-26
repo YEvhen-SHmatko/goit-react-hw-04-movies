@@ -1,15 +1,12 @@
-import React, { Component, lazy, Suspense } from 'react';
+import React, { Component, Suspense } from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shortId from 'shortid';
 import PNotify from 'pnotify/dist/es/PNotify';
+import routers from '../../routes/routes';
 import * as API from '../../services/api';
 import Styles from './MovieDetailsPage.module.css';
 
-const Cast = lazy(() => import('../Cast/Cast' /* webpackChunkName: "Cast" */));
-const Reviews = lazy(() =>
-  import('../Reviews/Reviews' /* webpackChunkName: "Reviews" */),
-);
 export default class MovieDetailsPage extends Component {
   static propTypes = {
     history: PropTypes.shape({
@@ -47,9 +44,11 @@ export default class MovieDetailsPage extends Component {
 
   render() {
     const { data } = this.state;
+
+    const { id } = data;
     return (
       <>
-        {data.id && (
+        {id && (
           <div className={Styles.section}>
             <button className={Styles.btn} type="button" onClick={this.goBack}>
               go back
@@ -88,7 +87,7 @@ export default class MovieDetailsPage extends Component {
               <ul className={Styles.navInfo}>
                 <li className={Styles.item}>
                   <NavLink
-                    to={`/movies/${data.id}/cast`}
+                    to={`/movies/${id}/cast`}
                     className={Styles.link}
                     activeClassName={Styles.active}
                   >
@@ -97,7 +96,7 @@ export default class MovieDetailsPage extends Component {
                 </li>
                 <li className={Styles.item}>
                   <NavLink
-                    to={`/movies/${data.id}/revievs`}
+                    to={`/movies/${id}/reviews`}
                     className={Styles.link}
                     activeClassName={Styles.active}
                   >
@@ -107,8 +106,16 @@ export default class MovieDetailsPage extends Component {
               </ul>
               <Suspense fallback={<div>...Loading...</div>}>
                 <Switch>
-                  <Route path="/movies/:id/cast" exact component={Cast} />
-                  <Route path="/movies/:id/revievs" exact component={Reviews} />
+                  <Route
+                    path={routers.CAST_PAGE.path}
+                    exact
+                    component={routers.CAST_PAGE.component}
+                  />
+                  <Route
+                    path={routers.REVIEWS_PAGE.path}
+                    exact
+                    component={routers.REVIEWS_PAGE.component}
+                  />
                 </Switch>
               </Suspense>
             </div>

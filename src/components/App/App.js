@@ -1,18 +1,7 @@
-import React, { Component, lazy, Suspense } from 'react';
+import React, { Component, Suspense } from 'react';
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
 import Styles from './App.module.css';
-
-const HomePage = lazy(() =>
-  import('../HomePage/HomePage' /* webpackChunkName: "HomePage" */),
-);
-const MoviesPage = lazy(() =>
-  import('../MoviesPage/MoviesPage' /* webpackChunkName: "MoviesPage" */),
-);
-const MovieDetailsPage = lazy(() =>
-  import(
-    '../MovieDetailsPage/MovieDetailsPage' /* webpackChunkName: "MovieDetailsPage" */
-  ),
-);
+import routers from '../../routes/routes';
 
 export default class App extends Component {
   state = {};
@@ -38,7 +27,7 @@ export default class App extends Component {
           <ul className={Styles.list}>
             <li className={Styles.item}>
               <NavLink
-                to="/"
+                to={routers.HOME_PAGE.path}
                 exact
                 className={Styles.link}
                 activeClassName={Styles.active}
@@ -48,7 +37,7 @@ export default class App extends Component {
             </li>
             <li className={Styles.item}>
               <NavLink
-                to="/movies"
+                to={routers.MOVIES_PAGE.path}
                 className={Styles.link}
                 activeClassName={Styles.active}
               >
@@ -60,10 +49,20 @@ export default class App extends Component {
         <main className={Styles.main}>
           <Suspense fallback={<div>...Loading</div>}>
             <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route path="/movies/:id" component={MovieDetailsPage} />
-              <Route path="/movies" component={MoviesPage} />
-              <Redirect to="/" />
+              <Route
+                exact
+                path={routers.HOME_PAGE.path}
+                component={routers.HOME_PAGE.component}
+              />
+              <Route
+                path={routers.MOVIE_DETAILS_PAGE.path}
+                component={routers.MOVIE_DETAILS_PAGE.component}
+              />
+              <Route
+                path={routers.MOVIES_PAGE.path}
+                component={routers.MOVIES_PAGE.component}
+              />
+              <Redirect to={routers.HOME_PAGE.path} />
             </Switch>
           </Suspense>
         </main>
