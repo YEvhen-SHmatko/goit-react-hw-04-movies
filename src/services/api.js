@@ -1,7 +1,9 @@
 import Axios from 'axios';
 
+require('dotenv').config();
+
 const API_BASE_URL = 'https://api.themoviedb.org/3/';
-const API_KEY = '6b99ab3893b7ab7cc1f5e941cef2fb78';
+const API_KEY = process.env.REACT_APP_API_KEY;
 // +
 export const getMoviesTrending = (mediaType = 'all', timeWindow = 'day') => {
   return Axios.get(
