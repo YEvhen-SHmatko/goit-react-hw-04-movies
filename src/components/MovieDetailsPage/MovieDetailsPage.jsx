@@ -11,6 +11,7 @@ export default class MovieDetailsPage extends Component {
   static propTypes = {
     history: PropTypes.shape({
       goBack: PropTypes.func.isRequired,
+      replace: PropTypes.func.isRequired,
     }).isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({
@@ -44,11 +45,9 @@ export default class MovieDetailsPage extends Component {
 
   render() {
     const { data } = this.state;
-
-    const { id } = data;
     return (
       <>
-        {id && (
+        {data.id && (
           <div className={Styles.section}>
             <button className={Styles.btn} type="button" onClick={this.goBack}>
               go back
@@ -87,7 +86,8 @@ export default class MovieDetailsPage extends Component {
               <ul className={Styles.navInfo}>
                 <li className={Styles.item}>
                   <NavLink
-                    to={`/movies/${id}/cast`}
+                    to={`/movies/${data.id}/cast`}
+                    replace
                     className={Styles.link}
                     activeClassName={Styles.active}
                   >
@@ -96,7 +96,8 @@ export default class MovieDetailsPage extends Component {
                 </li>
                 <li className={Styles.item}>
                   <NavLink
-                    to={`/movies/${id}/reviews`}
+                    to={`/movies/${data.id}/reviews`}
+                    replace
                     className={Styles.link}
                     activeClassName={Styles.active}
                   >
